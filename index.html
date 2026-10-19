@@ -155,6 +155,8 @@
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('#071326'); scene.fog = new THREE.FogExp2('#111d35',0.0065);
     const camera = new THREE.PerspectiveCamera(54,innerWidth/innerHeight,0.1,650);
+    // Keep the camera in the scene graph so its attached flashlight, beam, and view model are rendered.
+    scene.add(camera);
     const renderer = new THREE.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});
     renderer.setPixelRatio(Math.min(devicePixelRatio || 1,2)); renderer.setSize(innerWidth,innerHeight); renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.12;
     renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap; renderer.domElement.tabIndex = 0; renderer.domElement.setAttribute('aria-label','Click the world to look around'); $('world').appendChild(renderer.domElement);

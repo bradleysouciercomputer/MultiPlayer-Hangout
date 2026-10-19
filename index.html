@@ -317,7 +317,7 @@
     $('chat-toggle').addEventListener('click',()=>{const minimized=chatPanel.classList.toggle('minimized');if(!minimized&&innerWidth<=760)chatInput.focus();});$('chat-minimize').addEventListener('click',()=>chatPanel.classList.toggle('minimized'));$('reset-view').addEventListener('click',()=>{yaw=0;pitch=0;toast('View reset. The world is right where you left it.');});
     document.addEventListener('keydown',event=>{const target=event.target;if(target instanceof HTMLInputElement||target instanceof HTMLTextAreaElement||target?.isContentEditable)return;const key=event.key.toLowerCase();if(key==='t'&&user){event.preventDefault();const minimized=chatPanel.classList.toggle('minimized');if(!minimized)chatInput.focus();return;}if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' ','shift'].includes(key)){keys.add(key);if(key===' ')event.preventDefault();}});document.addEventListener('keyup',event=>keys.delete(event.key.toLowerCase()));addEventListener('blur',()=>keys.clear());
     renderer.domElement.addEventListener('click',()=>{if(user&&!document.pointerLockElement&&innerWidth>760)renderer.domElement.requestPointerLock?.();});document.addEventListener('pointerlockchange',()=>{const locked=document.pointerLockElement===renderer.domElement;const hint=document.querySelector('.keyboard-hint');if(hint)hint.innerHTML=locked?'<kbd>ESC</kbd> TO RELEASE LOOK':'<kbd>CLICK</kbd> TO LOOK AROUND';});
-    document.addEventListener('mousemove',event=>{if(document.pointerLockElement!==renderer.domElement||!user)return;yaw-=event.movementX*.0022;pitch=THREE.MathUtils.clamp(pitch+event.movementY*.0015,-.78,.9);});
+    document.addEventListener('mousemove',event=>{if(document.pointerLockElement!==renderer.domElement||!user)return;yaw+=event.movementX*.0022;pitch=THREE.MathUtils.clamp(pitch+event.movementY*.0015,-.78,.9);});
     let touchLookId=null,lastTouchX=0,lastTouchY=0,mouseDrag=false,lastMouseX=0,lastMouseY=0;
     renderer.domElement.addEventListener('pointerdown',event=>{
       if(!user)return;
@@ -326,8 +326,8 @@
     });
     renderer.domElement.addEventListener('pointermove',event=>{
       if(!user)return;
-      if(event.pointerType==='touch'&&touchLookId===event.pointerId){const dx=event.clientX-lastTouchX,dy=event.clientY-lastTouchY;lastTouchX=event.clientX;lastTouchY=event.clientY;yaw-=dx*.004;pitch=THREE.MathUtils.clamp(pitch+dy*.003,-.78,.9);}
-      else if(mouseDrag&&document.pointerLockElement!==renderer.domElement){const dx=event.clientX-lastMouseX,dy=event.clientY-lastMouseY;lastMouseX=event.clientX;lastMouseY=event.clientY;yaw-=dx*.003;pitch=THREE.MathUtils.clamp(pitch+dy*.002,-.78,.9);}
+      if(event.pointerType==='touch'&&touchLookId===event.pointerId){const dx=event.clientX-lastTouchX,dy=event.clientY-lastTouchY;lastTouchX=event.clientX;lastTouchY=event.clientY;yaw+=dx*.004;pitch=THREE.MathUtils.clamp(pitch+dy*.003,-.78,.9);}
+      else if(mouseDrag&&document.pointerLockElement!==renderer.domElement){const dx=event.clientX-lastMouseX,dy=event.clientY-lastMouseY;lastMouseX=event.clientX;lastMouseY=event.clientY;yaw+=dx*.003;pitch=THREE.MathUtils.clamp(pitch+dy*.002,-.78,.9);}
     });
     renderer.domElement.addEventListener('pointerup',event=>{if(touchLookId===event.pointerId)touchLookId=null;mouseDrag=false;});
     renderer.domElement.addEventListener('pointercancel',event=>{if(touchLookId===event.pointerId)touchLookId=null;mouseDrag=false;});

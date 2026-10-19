@@ -273,7 +273,7 @@
       rig.gait+=(gaitTarget-rig.gait)*(1-Math.exp(-dt*10));
       rig.phase+=dt*(running?13.2:9.2);
       const phase=rig.phase,gait=rig.gait;
-      const stride=Math.sin(phase)*gait*(running?.70:.48);
+      const stride=Math.sin(phase)*gait*(running ? 0.70 : 0.48);
       const idle=Math.sin(time*1.45+phase*.13)*.025*(1-gait);
       actor.userData.arms[0].rotation.x=-stride+idle;
       actor.userData.arms[1].rotation.x=stride-idle;
@@ -283,7 +283,7 @@
       actor.userData.forearms[1].rotation.x=-.10+Math.max(0,-stride)*.45;
       actor.userData.legs[0].rotation.x=stride;
       actor.userData.legs[1].rotation.x=-stride;
-      actor.userData.shins[0].rotation.x=Math.max(0,-Math.sin(phase))*gait*(running?.82:.48);
+      actor.userData.shins[0].rotation.x=Math.max(0,-Math.sin(phase))*gait*(running ? 0.82 : 0.48);
       actor.userData.shins[1].rotation.x=Math.max(0,Math.sin(phase))*gait*(running?.82:.48);
       rig.torso.position.y=1.25+Math.sin(phase*2)*.018*gait+Math.sin(time*2.1+phase*.2)*.007;
       rig.torso.rotation.z=-strafe*.045+Math.sin(phase)*.018*gait;
@@ -362,8 +362,6 @@
         const moving=sampledSpeed>.38;
         const gaitTarget=THREE.MathUtils.clamp(sampledSpeed/7.5,0,1);
         animateAvatar(r.group,dt,time,gaitTarget,sampledSpeed>8.4,0);
-        const footBob=Math.abs(Math.sin(time*9+r.group.position.x))*.012*gaitTarget;
-        r.group.position.y+=footBob*.1;
       });
       renderer.render(scene,camera);}
     addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.setSize(innerWidth,innerHeight);});

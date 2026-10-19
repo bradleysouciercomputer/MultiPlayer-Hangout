@@ -270,29 +270,36 @@
       return g;
     }
     function animateAvatar(actor,dt,time,gaitTarget,running,strafe=0){
-      const rig=actor.userData.anim;if(!rig)return;
+      const data=actor?.userData;
+      const rig=data?.anim;
+      // A missing or stale rig should skip animation, never stop the whole render loop.
+      if(!data||!rig||!data.torso?.position||!data.torso?.rotation||!data.head?.rotation||
+         !data.arms?.[0]?.rotation||!data.arms?.[1]?.rotation||
+         !data.forearms?.[0]?.rotation||!data.forearms?.[1]?.rotation||
+         !data.legs?.[0]?.rotation||!data.legs?.[1]?.rotation||
+         !data.shins?.[0]?.rotation||!data.shins?.[1]?.rotation)return;
       rig.gait+=(gaitTarget-rig.gait)*(1-Math.exp(-dt*10));
       rig.phase+=dt*(running?13.2:9.2);
       const phase=rig.phase,gait=rig.gait;
-      const stride=Math.sin(phase)*gait*(running ? 0.70 : 0.48);
+      const stride=Math.sin(phase)*gait*(running?0.70:0.48);
       const idle=Math.sin(time*1.45+phase*.13)*.025*(1-gait);
-      actor.userData.arms[0].rotation.x=-stride+idle;
-      actor.userData.arms[1].rotation.x=stride-idle;
-      actor.userData.arms[0].rotation.z=-.035-strafe*.045;
-      actor.userData.arms[1].rotation.z=.035-strafe*.045;
-      actor.userData.forearms[0].rotation.x=-.10+Math.max(0,stride)*.45;
-      actor.userData.forearms[1].rotation.x=-.10+Math.max(0,-stride)*.45;
-      actor.userData.legs[0].rotation.x=stride;
-      actor.userData.legs[1].rotation.x=-stride;
-      actor.userData.shins[0].rotation.x=Math.max(0,-Math.sin(phase))*gait*(running ? 0.82 : 0.48);
-      actor.userData.shins[1].rotation.x=Math.max(0,Math.sin(phase))*gait*(running?.82:.48);
-      rig.torso.position.y=1.25+Math.sin(phase*2)*.018*gait+Math.sin(time*2.1+phase*.2)*.007;
-      rig.torso.rotation.z=-strafe*.045+Math.sin(phase)*.018*gait;
-      rig.torso.rotation.x=(running?.035:.012)*gait;
-      rig.head.rotation.x=Math.sin(time*1.2+phase*.18)*.018+gait*.018;
-      rig.head.rotation.z=Math.sin(time*.7+phase*.25)*.018;
+      data.arms[0].rotation.x=-stride+idle;
+      data.arms[1].rotation.x=stride-idle;
+      data.arms[0].rotation.z=-.035-strafe*.045;
+      data.arms[1].rotation.z=.035-strafe*.045;
+      data.forearms[0].rotation.x=-.10+Math.max(0,stride)*.45;
+      data.forearms[1].rotation.x=-.10+Math.max(0,-stride)*.45;
+      data.legs[0].rotation.x=stride;
+      data.legs[1].rotation.x=-stride;
+      data.shins[0].rotation.x=Math.max(0,-Math.sin(phase))*gait*(running?0.82:0.48);
+      data.shins[1].rotation.x=Math.max(0,Math.sin(phase))*gait*(running?0.82:0.48);
+      data.torso.position.y=1.25+Math.sin(phase*2)*.018*gait+Math.sin(time*2.1+phase*.2)*.007;
+      data.torso.rotation.z=-strafe*.045+Math.sin(phase)*.018*gait;
+      data.torso.rotation.x=(running?.035:.012)*gait;
+      data.head.rotation.x=Math.sin(time*1.2+phase*.18)*.018+gait*.018;
+      data.head.rotation.z=Math.sin(time*.7+phase*.25)*.018;
     }
-    let local = avatar('Wanderer','#9fe8cb');local.visible=false;scene.add(local);const position=new THREE.Vector3(),oldPosition=new THREE.Vector3(),cameraWant=new THREE.Vector3(),lookAt=new THREE.Vector3(),motion=new THREE.Vector3();let yaw=0,pitch=0,vertical=0,grounded=true,blend=0;
+        let local = avatar('Wanderer','#9fe8cb');local.visible=false;scene.add(local);const position=new THREE.Vector3(),oldPosition=new THREE.Vector3(),cameraWant=new THREE.Vector3(),lookAt=new THREE.Vector3(),motion=new THREE.Vector3();let yaw=0,pitch=0,vertical=0,grounded=true,blend=0;
     function rebuildAvatar(){scene.remove(local);local=avatar(profile.display_name,profile.avatar_color);local.position.copy(position);local.visible=false;scene.add(local);}
     function spawnRemote(payload){const actor=avatar(cleanName(payload.display_name || 'Wanderer'),payload.avatar_color || '#c5b4ff');actor.position.set(Number(payload.x)||0,Number(payload.y)||0,Number(payload.z)||0);actor.rotation.y=Number(payload.yaw)||0;scene.add(actor);remotes.set(payload.client_id,{group:actor,target:actor.position.clone(),targetYaw:actor.rotation.y,userId:payload.user_id,animPosition:actor.position.clone()});}
     function moveRemote(payload){if(!payload||!payload.client_id||payload.client_id===clientId)return;let r=remotes.get(payload.client_id);if(!r){spawnRemote(payload);r=remotes.get(payload.client_id);}r.target.set(Number(payload.x)||0,Number(payload.y)||0,Number(payload.z)||0);r.targetYaw=Number(payload.yaw)||0;}
@@ -324,47 +331,60 @@
     });
     renderer.domElement.addEventListener('pointerup',event=>{if(touchLookId===event.pointerId)touchLookId=null;mouseDrag=false;});
     renderer.domElement.addEventListener('pointercancel',event=>{if(touchLookId===event.pointerId)touchLookId=null;mouseDrag=false;});
-    const clock=new THREE.Timer(),obstacles=[{x:31,z:-24,r:6.8},{x:-34,z:-24,r:6.8},{x:31,z:28,r:6.8},{x:-34,z:28,r:6.8},{x:0,z:0,r:4.7}];
-    function animate(){requestAnimationFrame(animate);clock.update();const dt=Math.min(clock.getDelta(),.04),time=clock.getElapsed();
-      fountainWater.position.y=1.025+Math.sin(time*1.65)*.018;portal.rotation.z=Math.sin(time*.48)*.035;portal.material.emissiveIntensity=.52+Math.sin(time*1.3)*.16;
-      if(user&&setup){
-        const forward=(keys.has('w')||keys.has('arrowup')?1:0)-(keys.has('s')||keys.has('arrowdown')?1:0);
-        const strafe=(keys.has('d')||keys.has('arrowright')?1:0)-(keys.has('a')||keys.has('arrowleft')?1:0);
-        motion.set(Math.sin(yaw)*forward+Math.cos(yaw)*strafe,0,-Math.cos(yaw)*forward+Math.sin(yaw)*strafe);
-        if(motion.lengthSq()>1)motion.normalize();
-        const running=keys.has('shift'),moving=motion.lengthSq()>.001;
-        oldPosition.copy(position);position.addScaledVector(motion,(running?12.8:7.8)*dt);
-        if(obstacles.some(o=>Math.hypot(position.x-o.x,position.z-o.z)<o.r)){position.x=oldPosition.x;position.z=oldPosition.z;}
-        const radius=Math.hypot(position.x,position.z);if(radius>66){position.x*=66/radius;position.z*=66/radius;}
-        if(keys.has(' ')&&grounded){vertical=7.6;grounded=false;}
-        vertical-=19*dt;position.y+=vertical*dt;if(position.y<=0){position.y=0;vertical=0;grounded=true;}
-        const gaitTarget=moving?(running?1:.72):0;
-        blend+=(gaitTarget-blend)*(1-Math.exp(-dt*9));
-        local.position.copy(position);local.rotation.y=yaw;
-        animateAvatar(local,dt,time,gaitTarget,running,strafe);
-        const stepRate=running?17:11;
-        const cameraBob=Math.sin(time*stepRate)*.035*blend;
-        const cameraSway=Math.cos(time*stepRate*.5)*.012*blend;
-        const eyeHeight=1.62+cameraBob;
-        cameraWant.set(position.x+Math.cos(yaw)*cameraSway,position.y+eyeHeight,position.z+Math.sin(yaw)*cameraSway);
-        camera.position.lerp(cameraWant,1-Math.exp(-dt*18));
-        lookAt.set(position.x+Math.sin(yaw)*Math.cos(pitch),position.y+eyeHeight-Math.sin(pitch),position.z-Math.cos(yaw)*Math.cos(pitch));
-        camera.lookAt(lookAt);
-      }else{
-        const a=time*.035;cameraWant.set(Math.sin(a)*90,42,Math.cos(a)*90);
-        camera.position.lerp(cameraWant,1-Math.exp(-dt*2.1));camera.lookAt(0,0,0);
+    const obstacles=[{x:31,z:-24,r:6.8},{x:-34,z:-24,r:6.8},{x:31,z:28,r:6.8},{x:-34,z:28,r:6.8},{x:0,z:0,r:4.7}];
+    let previousFrameTime=performance.now(),elapsedTime=0,frameErrorReported=false,renderErrorReported=false;
+    function animate(frameNow=performance.now()){
+      requestAnimationFrame(animate);
+      const dt=Math.min(Math.max((frameNow-previousFrameTime)/1000,0),.04);
+      previousFrameTime=frameNow;elapsedTime+=dt;const time=elapsedTime;
+      try{
+        if(fountainWater?.position)fountainWater.position.y=1.025+Math.sin(time*1.65)*.018;
+        if(portal?.rotation)portal.rotation.z=Math.sin(time*.48)*.035;
+        if(portal?.material)portal.material.emissiveIntensity=.52+Math.sin(time*1.3)*.16;
+        if(user&&setup&&local?.position){
+          const forward=(keys.has('w')||keys.has('arrowup')?1:0)-(keys.has('s')||keys.has('arrowdown')?1:0);
+          const strafe=(keys.has('d')||keys.has('arrowright')?1:0)-(keys.has('a')||keys.has('arrowleft')?1:0);
+          motion.set(Math.sin(yaw)*forward+Math.cos(yaw)*strafe,0,-Math.cos(yaw)*forward+Math.sin(yaw)*strafe);
+          if(motion.lengthSq()>1)motion.normalize();
+          const running=keys.has('shift'),moving=motion.lengthSq()>.001;
+          oldPosition.copy(position);position.addScaledVector(motion,(running?12.8:7.8)*dt);
+          if(obstacles.some(o=>Math.hypot(position.x-o.x,position.z-o.z)<o.r)){position.x=oldPosition.x;position.z=oldPosition.z;}
+          const radius=Math.hypot(position.x,position.z);if(radius>66){position.x*=66/radius;position.z*=66/radius;}
+          if(keys.has(' ')&&grounded){vertical=7.6;grounded=false;}
+          vertical-=19*dt;position.y+=vertical*dt;if(position.y<=0){position.y=0;vertical=0;grounded=true;}
+          const gaitTarget=moving?(running?1:.72):0;
+          blend+=(gaitTarget-blend)*(1-Math.exp(-dt*9));
+          local.position.copy(position);local.rotation.y=yaw;
+          animateAvatar(local,dt,time,gaitTarget,running,strafe);
+          const stepRate=running?17:11;
+          const cameraBob=Math.sin(time*stepRate)*.035*blend;
+          const cameraSway=Math.cos(time*stepRate*.5)*.012*blend;
+          const eyeHeight=1.62+cameraBob;
+          cameraWant.set(position.x+Math.cos(yaw)*cameraSway,position.y+eyeHeight,position.z+Math.sin(yaw)*cameraSway);
+          camera.position.lerp(cameraWant,1-Math.exp(-dt*18));
+          lookAt.set(position.x+Math.sin(yaw)*Math.cos(pitch),position.y+eyeHeight-Math.sin(pitch),position.z-Math.cos(yaw)*Math.cos(pitch));
+          camera.lookAt(lookAt);
+        }else{
+          const a=time*.035;cameraWant.set(Math.sin(a)*90,42,Math.cos(a)*90);
+          camera.position.lerp(cameraWant,1-Math.exp(-dt*2.1));camera.lookAt(0,0,0);
+        }
+        remotes.forEach((r,id)=>{
+          if(!r?.group?.position||!r.target||!r.animPosition){remotes.delete(id);return;}
+          r.group.position.lerp(r.target,1-Math.exp(-dt*8.5));
+          let d=r.targetYaw-r.group.rotation.y;d=Math.atan2(Math.sin(d),Math.cos(d));r.group.rotation.y+=d*(1-Math.exp(-dt*12));
+          const traveled=r.group.position.distanceTo(r.animPosition);
+          const sampledSpeed=dt>0?traveled/dt:0;
+          r.animPosition.copy(r.group.position);
+          const gaitTarget=THREE.MathUtils.clamp(sampledSpeed/7.5,0,1);
+          animateAvatar(r.group,dt,time,gaitTarget,sampledSpeed>8.4,0);
+        });
+      }catch(error){
+        // Keep the world rendering if a player/animation object arrives malformed.
+        if(!frameErrorReported){console.error('[Hangout] Recovered from a frame-update error:',error);frameErrorReported=true;}
       }
-      remotes.forEach(r=>{
-        r.group.position.lerp(r.target,1-Math.exp(-dt*8.5));
-        let d=r.targetYaw-r.group.rotation.y;d=Math.atan2(Math.sin(d),Math.cos(d));r.group.rotation.y+=d*(1-Math.exp(-dt*12));
-        const traveled=r.group.position.distanceTo(r.animPosition);
-        const sampledSpeed=dt>0?traveled/dt:0;
-        r.animPosition.copy(r.group.position);
-        const moving=sampledSpeed>.38;
-        const gaitTarget=THREE.MathUtils.clamp(sampledSpeed/7.5,0,1);
-        animateAvatar(r.group,dt,time,gaitTarget,sampledSpeed>8.4,0);
-      });
-      renderer.render(scene,camera);}
+      try{renderer.render(scene,camera);}
+      catch(error){if(!renderErrorReported){console.error('[Hangout] Three.js render error:',error);renderErrorReported=true;}}
+    }
     requestAnimationFrame(animate);
     addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.setSize(innerWidth,innerHeight);});
     async function boot(){setMode('signin');try{const result=await supabase.auth.getSession();if(result.error)throw result.error;if(result.data.session&&!recovering)await applySession(result.data.session);}catch(error){console.error('Auth initialization failed:',error);note('Could not connect to the account service. Check your connection and refresh.');}}

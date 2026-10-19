@@ -166,12 +166,12 @@
     const starPositions=[];
     for(let i=0;i<820;i++){const azimuth=Math.random()*Math.PI*2,elevation=.08+Math.random()*1.48,radius=320;starPositions.push(Math.cos(elevation)*Math.cos(azimuth)*radius,Math.sin(elevation)*radius+5,Math.cos(elevation)*Math.sin(azimuth)*radius);}
     const starGeometry=new THREE.BufferGeometry();starGeometry.setAttribute('position',new THREE.Float32BufferAttribute(starPositions,3));
-    const starField=new THREE.Points(starGeometry,new THREE.PointsMaterial({color:'#dbe8ff',size:1.05,sizeAttenuation:true,transparent:true,opacity:.85,depthWrite:false}));scene.add(starField);
-    const moon=new THREE.Mesh(new THREE.SphereGeometry(7.2,32,24),new THREE.MeshStandardMaterial({color:'#e6eeff',emissive:'#94baff',emissiveIntensity:1.7,roughness:1}));moon.position.set(-72,91,-155);scene.add(moon);
+    const starField=new THREE.Points(starGeometry,new THREE.PointsMaterial({color:'#dbe8ff',size:1.05,sizeAttenuation:true,transparent:true,opacity:.85,depthWrite:false,fog:false}));scene.add(starField);
+    const moon=new THREE.Mesh(new THREE.SphereGeometry(7.2,32,24),new THREE.MeshStandardMaterial({color:'#e6eeff',emissive:'#94baff',emissiveIntensity:1.7,roughness:1,fog:false}));moon.position.set(-72,91,-155);scene.add(moon);
     const moonHaloCanvas=document.createElement('canvas');moonHaloCanvas.width=moonHaloCanvas.height=128;
     const moonHaloCtx=moonHaloCanvas.getContext('2d'),moonGlow=moonHaloCtx.createRadialGradient(64,64,5,64,64,64);
     moonGlow.addColorStop(0,'rgba(163,195,255,.42)');moonGlow.addColorStop(.25,'rgba(129,166,245,.16)');moonGlow.addColorStop(1,'rgba(95,133,230,0)');moonHaloCtx.fillStyle=moonGlow;moonHaloCtx.fillRect(0,0,128,128);
-    const moonHalo=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(moonHaloCanvas),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));moonHalo.position.copy(moon.position);moonHalo.scale.set(35,35,1);scene.add(moonHalo);
+    const moonHalo=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(moonHaloCanvas),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,fog:false}));moonHalo.position.copy(moon.position);moonHalo.scale.set(35,35,1);scene.add(moonHalo);
     const flashlightButton=$('flashlight-toggle');
     const flashlightSpot=new THREE.SpotLight('#d9e9ff',118,48,Math.PI/7.2,.48,1.55);flashlightSpot.position.set(.31,-.25,-.65);flashlightSpot.castShadow=false;flashlightSpot.visible=false;
     flashlightSpot.target.position.set(.35,-.29,-30);camera.add(flashlightSpot);camera.add(flashlightSpot.target);

@@ -199,7 +199,7 @@
       return group;
     }
     function seatWorldPosition(carPosition,carYaw,seatIndex){
-      const offset=seatIndex===1?[.46,-.60,-.25]:seatIndex===2?[-.46,-.60,.72]:[.46,-.60,.72];
+      const offset=seatIndex===0?[-.46,-.60,-.25]:seatIndex===1?[.46,-.60,-.25]:seatIndex===2?[-.46,-.60,.72]:[.46,-.60,.72];
       const rotated=new THREE.Vector3(offset[0],0,offset[2]).applyAxisAngle(new THREE.Vector3(0,1,0),-carYaw);
       return new THREE.Vector3(carPosition.x+rotated.x,carPosition.y+offset[1],carPosition.z+rotated.z);
     }
@@ -511,7 +511,7 @@
         const hasMovementInput=['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright'].some(key=>keys.has(key));
         const running=hasMovementInput&&keys.has('shift'),gait=hasMovementInput?(running?1:.72):0;
         const carState=personalCar?{active:true,x:+personalCar.group.position.x.toFixed(2),z:+personalCar.group.position.z.toFixed(2),yaw:+personalCar.yaw.toFixed(3),speed:+personalCar.speed.toFixed(2),color:personalCar.color,driving:drivingCar}:null;
-        const rideState=localRide?{driverClientId:localRide.driverClientId,seatIndex:localRide.seatIndex}:null;
+        const rideState=drivingCar?{driverClientId:clientId,seatIndex:0}:localRide?{driverClientId:localRide.driverClientId,seatIndex:localRide.seatIndex}:null;
         const carSignature=carState?JSON.stringify(carState):'none',rideSignature=rideState?JSON.stringify(rideState):'none';
         const changed=position.distanceToSquared(lastPosition)>.0015||Math.abs(yaw-lastYaw)>.025||Math.abs(pitch-lastPitch)>.025||Math.abs(gait-lastGait)>.05||running!==lastRunning||flashlightOn!==lastFlashlight||carSignature!==lastVehicleSignature||rideSignature!==lastRideSignature;
         if(!changed&&now-lastSent<700)return;

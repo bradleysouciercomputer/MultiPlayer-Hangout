@@ -464,7 +464,7 @@
       h.windowMeshes.forEach(win=>{const onColor=win.userData.homeLightColor||'#86caff';win.material.emissive.set(h.lightsOn?onColor:'#071326');win.material.emissiveIntensity=h.lightsOn?1.15:.025;});
       h.interiorLight.intensity=h.lightsOn?1.65:0;
       h.ceilingBulbMat.emissive.set(h.lightsOn?'#ffc46c':'#071326');h.ceilingBulbMat.emissiveIntensity=h.lightsOn?1.9:.02;h.ceilingBulbMat.color.set(h.lightsOn?'#ffd9a2':'#263244');
-      h.yardLight.intensity=h.lightsOn?.38:.035;
+      h.yardLight.intensity=h.lightsOn ? 0.38 : 0.035;
     }
     function applyHouseState(data){
       if(!data||!Number.isInteger(Number(data.homeIndex)))return;
@@ -474,6 +474,7 @@
       if(data.doorLocked!==undefined)h.doorLocked=Boolean(data.doorLocked);
       if(data.lightsOn!==undefined)h.lightsOn=Boolean(data.lightsOn);
       refreshHomeVisual(h);
+      if(myHome===h&&user&&h.ownerId===user.id)persistMyHome();
     }
     function nearestHouseDoor(maxDistance=3.4,p=position){
       if(!p)return null;let best=null,bestDistance=maxDistance;

@@ -624,7 +624,7 @@
           remotes.forEach((r,id)=>{
             if(!r?.group?.position||!r.target||!r.animPosition){remotes.delete(id);return;}
             const rideCar=r.ride?(r.ride.driverClientId===clientId&&personalCar?{group:personalCar.group,yaw:personalCar.yaw}:remoteCars.get(r.ride.driverClientId)):null;
-            if(rideCar&&r.ride?.seatIndex){
+            if(rideCar&&r.ride?.seatIndex!==undefined&&r.ride?.seatIndex!==null){
               poseSeated(r.group,rideCar,Number(r.ride.seatIndex),dt,time);
             }else{
               r.group.position.lerp(r.target,1-Math.exp(-dt*8.5));

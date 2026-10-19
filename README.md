@@ -39,7 +39,7 @@ For a separate Supabase project, apply the SQL migrations in version order and s
 
 ## Deploy on GitHub Pages
 
-A GitHub Actions workflow builds the static site and deploys the dist folder to Pages whenever main is updated. In repository Settings → Pages, choose GitHub Actions as the build and deployment source if prompted. After the workflow succeeds, open the Pages URL shown in the deployment summary.
+A GitHub Actions workflow builds the static site and deploys the dist folder to Pages whenever main is updated. **One-time setup required:** open repository Settings → Pages → Build and deployment, set Source to **GitHub Actions**, and save. The connected GitHub integration cannot enable Pages on behalf of the repository, so the first deployment will fail until you turn it on here. Then go to Actions and re-run the latest “Build and deploy to GitHub Pages” workflow (or push another commit). After deployment succeeds, open the Pages URL shown in the deployment summary.
 
 GitHub Pages hosts the static client, not a game server process. Supabase Realtime handles player presence and movement broadcasts.
 

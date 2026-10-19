@@ -245,7 +245,7 @@
         updateCarButton();toast('Your personal car is ready. WASD to drive, E to pick up a friend.');return;
       }
       if(drivingCar){
-        drivingCar=false;vehicleYaw=personalCar.yaw;yaw=vehicleYaw;
+        personalCar.speed=0;drivingCar=false;vehicleYaw=personalCar.yaw;yaw=vehicleYaw;
         position.set(personalCar.group.position.x+Math.cos(vehicleYaw)*1.8,0,personalCar.group.position.z+Math.sin(vehicleYaw)*1.8);
         updateCarButton();toast('Car parked. Press C to drive again.');return;
       }

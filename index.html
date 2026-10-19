@@ -400,7 +400,7 @@
       const driveway=new THREE.Mesh(new THREE.PlaneGeometry(3.2,6.8),mat('#777e89',.95));driveway.rotation.x=-Math.PI/2;driveway.position.set(x,.065,z+frontDir*6.4);driveway.position.x=x;scene.add(driveway);
       const walk=new THREE.Mesh(new THREE.PlaneGeometry(1.25,4.8),mat('#b1b2ae',.93));walk.rotation.x=-Math.PI/2;walk.position.set(x,.07,z+frontDir*5.0);scene.add(walk);
       for(const side of [-1,1]){const flowerbed=new THREE.Mesh(new THREE.BoxGeometry(1.18,.12,.42),mat(index%2?'#4e6a47':'#67584c',.95));flowerbed.position.set(x+side*2.5,.14,z+frontDir*3.6);scene.add(flowerbed);for(let f=0;f<3;f++){const bloom=new THREE.Mesh(new THREE.SphereGeometry(.12,8,6),mat(['#de8a9a','#d7b6ed','#e9bd7d'][(index+f)%3],.5,{emissive:'#5a3045',emissiveIntensity:.12}));bloom.position.set(x+side*2.5+(f-1)*.32,.32,z+frontDir*3.6);scene.add(bloom);}}
-      makeTree(x+5.25,z+2.6,.72+index%3*.08);
+      makeTree(x+5.25,z+2.6,.72+index%3*.08);neighborhoodColliders.push({x:x+5.25,z:z+2.6,r:1.0});
       makeShrub(x-5.2,z+2.1,index%2?'#315646':'#3a5d4b');makeShrub(x-4.7,z+3.0,'#3b634e');
       neighborhoodColliders.push({x,z,r:4.5});
       const yardLight=new THREE.PointLight('#ffd39a',.38,5.5,2);yardLight.position.set(x,2.25,z+frontDir*3.4);scene.add(yardLight);
@@ -661,7 +661,7 @@
     renderer.domElement.addEventListener('pointercancel',event=>{if(touchLookId===event.pointerId)touchLookId=null;mouseDrag=false;});
     const lanterns=[];
     [[8,7],[-8,7],[8,-7],[-8,-7],[7,12],[-7,12],[7,-12],[-7,-12]].forEach(([x,z])=>{const g=new THREE.Group();g.position.set(x,0,z);const chain=new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,.7,6),mat('#354158',.55));chain.position.y=3.55;g.add(chain);const shade=new THREE.Mesh(new THREE.SphereGeometry(.22,12,9),mat('#ffdca2',.3,{emissive:'#ffb95f',emissiveIntensity:2.2}));shade.position.y=3.15;g.add(shade);const light=new THREE.PointLight('#ffc77f',5.2,10,1.8);light.position.y=3.1;g.add(light);scene.add(g);lanterns.push({shade,light,phase:Math.random()*6.28});});
-    const obstacles=[...neighborhoodColliders,{x:0,z:0,r:4.75}];
+    const obstacles=[...neighborhoodColliders,{x:0,z:0,r:4.75}],vehicleObstacles=[...neighborhoodColliders,{x:0,z:0,r:9.25}];
     let previousFrameTime=performance.now(),elapsedTime=0,frameErrorReported=false,renderErrorReported=false;
     function animate(frameNow=performance.now()){
       requestAnimationFrame(animate);
@@ -695,7 +695,9 @@
             const carPos=personalCar.group.position,oldX=carPos.x,oldZ=carPos.z;
             carPos.x+=Math.sin(vehicleYaw)*personalCar.speed*dt;
             carPos.z-=Math.cos(vehicleYaw)*personalCar.speed*dt;
-            if(obstacles.some(o=>Math.hypot(carPos.x-o.x,carPos.z-o.z)<o.r+1.3)){carPos.x=oldX;carPos.z=oldZ;personalCar.speed=0;}
+            const blockedByLot=vehicleObstacles.some(o=>Math.hypot(carPos.x-o.x,carPos.z-o.z)<o.r+1.3);
+            const blockedByCar=[...remoteCars.values()].some(other=>Math.hypot(carPos.x-other.group.position.x,carPos.z-other.group.position.z)<3.65);
+            if(blockedByLot||blockedByCar){carPos.x=oldX;carPos.z=oldZ;personalCar.speed=0;}
             const radius=Math.hypot(carPos.x,carPos.z);if(radius>66){carPos.x*=66/radius;carPos.z*=66/radius;personalCar.speed=0;}
             personalCar.group.rotation.y=-vehicleYaw;
             personalCar.group.userData.wheels?.forEach(wheel=>{wheel.rotation.x+=personalCar.speed*dt*1.8;});

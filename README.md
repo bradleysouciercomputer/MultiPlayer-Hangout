@@ -5,8 +5,8 @@ A cozy, browser-based 3D multiplayer hangout built with Three.js, Vite, and Supa
 ## Features
 
 - A hand-built low-poly island with a town square, fountain, trees, Little Cloud Cafe, Sky Lounge, Music Corner, Flower Market, and a Daydream Portal.
-- Third-person movement: WASD or arrow keys to walk, Shift to run, Space to hop, and mouse movement to look around after clicking the world. Press Esc to release the mouse.
-- Live multiplayer avatars with overhead nameplates, player position broadcasts, and online presence.
+- First-person movement: WASD or arrow keys to walk, Shift to run, Space to hop, and mouse movement to look around after clicking the world. On touch devices, drag across the world to look around. Press Esc to release the mouse on desktop.
+- More detailed stylized avatars with layered outfits, facial features, hair, and backpacks, plus smoother idle, walk, and run animation with arm, elbow, leg, and knee movement. Live multiplayer avatars have overhead nameplates, interpolated movement, and online presence.
 - Global chat backed by Postgres. Recent messages are loaded when you join and new messages are broadcast live.
 - Email/password account creation and sign-in, email confirmation, sign-out, and password reset.
 - Row Level Security for the profile and chat tables, server-assigned chat display names, and authenticated-only access to the private global-lobby Realtime channel.

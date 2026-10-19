@@ -28,7 +28,7 @@
     .chat-panel{pointer-events:auto;position:absolute;top:96px;right:24px;bottom:70px;width:335px;display:flex;flex-direction:column;overflow:hidden;background:rgba(12,23,37,.84);transition:height .2s,opacity .2s}.chat-panel.minimized{top:96px;bottom:auto;height:56px}.chat-panel.minimized .community,.chat-panel.minimized .messages,.chat-panel.minimized .chat-form,.chat-panel.minimized .chat-foot{display:none}.chat-heading{display:flex;align-items:center;flex-shrink:0;padding:15px;border-bottom:1px solid #ffffff17}.chat-mark{display:grid;place-items:center;width:34px;height:34px;flex-shrink:0;margin-right:10px;border-radius:10px;background:#c5b4ff20;color:#d3c5ff;font-size:18px}.chat-heading-copy{flex:1}.chat-heading-copy h2{margin:0 0 5px;font:600 14px "Space Grotesk",sans-serif}.chat-heading-copy p{display:flex;align-items:center;gap:6px;margin:0;color:#8c9eb2;font-size:7px;font-weight:700;letter-spacing:.15em}.chat-heading-copy .dot{width:5px;height:5px}.community{display:flex;align-items:center;gap:10px;flex-shrink:0;padding:11px 15px;border-bottom:1px solid #ffffff12;color:#9eafc0;font-size:9px;line-height:1.5}.avatar-stack{display:flex;padding-left:2px}.avatar-stack span{display:grid;place-items:center;width:21px;height:21px;margin-left:-3px;border:2px solid #142334;border-radius:50%;color:#172d2c;background:#a3e5cd;font-size:9px}.avatar-stack span:nth-child(2){background:#dbc4ff}.avatar-stack span:nth-child(3){background:#f4c6a9}
     .messages{flex:1;min-height:0;display:flex;flex-direction:column;gap:16px;overflow-y:auto;padding:16px 15px 20px;scrollbar-width:thin;scrollbar-color:#d6e7f72e transparent}.empty{margin:auto 0;text-align:center;color:#879bad;padding:20px 0}.empty>span{display:grid;place-items:center;width:42px;height:42px;margin:0 auto 11px;border-radius:14px;background:#c5b4ff20;color:#d3c5ff;font-size:22px}.empty strong{display:block;color:#dce5ed;font-size:11px}.empty p{margin:6px 0 0;font-size:9px}.message{display:flex;gap:9px;animation:in .18s ease both}@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}.message-avatar{display:grid;place-items:center;flex-shrink:0;width:27px;height:27px;border-radius:9px;background:var(--avatar,#a4e5cf);color:#12252d;font-size:10px;font-weight:700}.message-main{min-width:0;flex:1}.message-meta{display:flex;align-items:baseline;gap:7px;margin:0 0 5px}.message-meta strong{max-width:155px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#e1eaf2;font-size:10px}.message-meta time{color:#71859b;font-size:8px}.message-main p{margin:0;color:#bdcbd9;font-size:10px;line-height:1.6;overflow-wrap:anywhere;white-space:pre-wrap}
     .chat-form{display:flex;align-items:center;gap:8px;flex-shrink:0;margin:0 12px 12px;padding:5px;border:1px solid #e4effd22;background:#040c2166;border-radius:10px}.chat-form:focus-within{border-color:#9fe8cb78}.chat-form input{min-width:0;flex:1;padding:8px 7px;border:0;outline:0;background:transparent;color:#edf5fc;font-size:10px}.chat-form input::placeholder{color:#74879a}.chat-form button{display:grid;place-items:center;width:31px;height:31px;border:0;border-radius:7px;background:var(--mint);color:#15342e;cursor:pointer;font-size:18px;font-weight:700}.chat-form button:disabled{opacity:.6;cursor:wait}.chat-foot{display:flex;justify-content:space-between;flex-shrink:0;padding:0 16px 12px;color:#788da2;font-size:7px;letter-spacing:.1em}.chat-foot i{display:inline-block;width:4px;height:4px;margin-right:4px;border-radius:50%;background:var(--mint)}
-    .bottom-left{position:absolute;left:28px;bottom:23px;display:flex;align-items:center;gap:10px;color:#e0ebf4;font-size:8px;font-weight:700;letter-spacing:.13em;text-shadow:0 2px 7px #0005}.bottom-left kbd{background:#0a17235e}.bottom-dot{width:3px;height:3px;border-radius:50%;background:#ffffffa3}.bottom-right{position:absolute;right:24px;bottom:19px;display:flex;align-items:center;gap:9px}.world-action{pointer-events:auto;display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid #ffffff40;border-radius:8px;background:#0a17235e;color:white;cursor:pointer;font-size:14px}.world-action span{font-size:9px}.world-action:hover{color:var(--mint);border-color:#9fe8cb80}.build-label{color:#dbe7f0;font-size:7px;letter-spacing:.16em;text-shadow:0 2px 7px #0005}.world-action[aria-pressed="true"]{border-color:#a9d8ff8c;color:#dcecff}.world-action[aria-pressed="true"]:before{content:"";width:5px;height:5px;border-radius:50%;background:#bde3ff;box-shadow:0 0 9px #addbff;order:3}.connection{position:absolute;left:50%;bottom:25px;transform:translateX(-50%);display:flex;align-items:center;gap:7px;padding:8px 12px;border:1px solid #ffffff24;border-radius:100px;background:#0b162b8c;color:#e0eaf3;font-size:9px;white-space:nowrap;backdrop-filter:blur(12px);transition:opacity .35s}.connection.connected{opacity:0;pointer-events:none}.connection .dot{background:#f7d599}.toast{position:absolute;top:88px;left:50%;transform:translate(-50%,-5px);padding:10px 15px;border:1px solid #ffffff29;border-radius:9px;background:#0d1a29e8;color:#eaf4f8;font-size:10px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.toast.show{opacity:1;transform:translate(-50%,0)}
+    .bottom-left{position:absolute;left:28px;bottom:23px;display:flex;align-items:center;gap:10px;color:#e0ebf4;font-size:8px;font-weight:700;letter-spacing:.13em;text-shadow:0 2px 7px #0005}.bottom-left kbd{background:#0a17235e}.bottom-dot{width:3px;height:3px;border-radius:50%;background:#ffffffa3}.bottom-right{position:absolute;right:24px;bottom:19px;display:flex;align-items:center;gap:9px}.world-action{pointer-events:auto;display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid #ffffff40;border-radius:8px;background:#0a17235e;color:white;cursor:pointer;font-size:14px}.world-action span{font-size:9px}.world-action:hover{color:var(--mint);border-color:#9fe8cb80}.build-label{color:#dbe7f0;font-size:7px;letter-spacing:.16em;text-shadow:0 2px 7px #0005}.world-action[aria-pressed="true"]{border-color:#a9d8ff8c;color:#dcecff}.world-action[aria-pressed="false"]{border-color:#ffffff40}.world-action[aria-pressed="true"]:before{content:"";width:5px;height:5px;border-radius:50%;background:#bde3ff;box-shadow:0 0 9px #addbff;order:3}.connection{position:absolute;left:50%;bottom:25px;transform:translateX(-50%);display:flex;align-items:center;gap:7px;padding:8px 12px;border:1px solid #ffffff24;border-radius:100px;background:#0b162b8c;color:#e0eaf3;font-size:9px;white-space:nowrap;backdrop-filter:blur(12px);transition:opacity .35s}.connection.connected{opacity:0;pointer-events:none}.connection .dot{background:#f7d599}.toast{position:absolute;top:88px;left:50%;transform:translate(-50%,-5px);padding:10px 15px;border:1px solid #ffffff29;border-radius:9px;background:#0d1a29e8;color:#eaf4f8;font-size:10px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.toast.show{opacity:1;transform:translate(-50%,0)}
     @media(max-width:1050px){.chat-panel{width:310px;right:16px;top:86px;bottom:61px}.left-rail{top:86px;left:16px;width:224px}.topbar{height:66px;padding:0 17px}.bottom-left{left:17px}.bottom-right{right:16px}.messages{gap:13px}}
     @media(max-width:760px){.auth-inner{padding:23px 19px 17px}.auth-copy{margin:35px 0 20px}.auth-copy h1{font-size:clamp(44px,13vw,62px)}.auth-copy p{max-width:350px;font-size:12px}.auth-card{max-width:420px}.auth-footer{font-size:7px;padding-top:19px}.auth-footer span:last-child{display:none}.topbar{height:61px;padding:0 13px}.status{display:none}.user-copy{display:none}.left-rail{top:74px;left:11px;width:min(210px,calc(100% - 22px))}.section{display:none}.location{padding:10px}.chat-shortcut{padding:9px}.chat-panel{top:auto;right:11px;left:11px;bottom:46px;width:auto;height:min(52vh,420px)}.chat-panel.minimized{left:auto;right:11px;bottom:50px;top:auto;width:51px;height:48px}.chat-panel.minimized .chat-heading{padding:6px;border:0;justify-content:center}.chat-panel.minimized .chat-mark{margin:0;width:35px;height:35px}.chat-panel.minimized .chat-heading-copy,.chat-panel.minimized #chat-minimize{display:none}.messages{padding:13px}.community{padding:9px 13px;font-size:8px}.chat-heading{padding:11px 13px 10px}.chat-form{margin-bottom:9px}.chat-foot{padding-bottom:9px}.bottom-left{left:13px;bottom:14px;font-size:7px}.bottom-left>span:last-child{display:none}.bottom-right{right:11px;bottom:9px}.world-action{padding:6px 8px}.world-action span,.build-label{display:none}.connection{bottom:13px;font-size:8px}}
     @media(max-width:420px){.auth-copy{margin-top:29px}.auth-copy p{font-size:11px;max-width:305px}.auth-card{padding:19px 17px 16px}.user-avatar{width:30px;height:30px}.location,.chat-shortcut{max-width:180px}.chat-panel{height:47vh}.bottom-left{gap:5px}.bottom-left .keyboard-hint{gap:4px}}
@@ -79,8 +79,8 @@
       <form id="chat-form" class="chat-form"><input id="chat-input" type="text" maxlength="500" placeholder="Message the whole world…" autocomplete="off" aria-label="Message global chat"><button type="submit" aria-label="Send message">↗</button></form>
       <div class="chat-foot"><span><i></i> LIVE &amp; CONNECTED</span><span>BE NICE OUT THERE</span></div>
     </aside>
-    <div class="bottom-left"><span class="keyboard-hint"><kbd>DRAG</kbd> TO LOOK AROUND</span><span class="bottom-dot"></span><span>EVERYONE'S OUT HERE</span></div>
-    <div class="bottom-right"><button id="flashlight-toggle" class="world-action" type="button" title="Toggle flashlight (F)" aria-pressed="true">🔦 <span>Flashlight on · F</span></button><button id="reset-view" class="world-action" title="Reset camera view">◎ <span>Reset view</span></button><span class="build-label">HANGOUT / NIGHT</span></div>
+    <div class="bottom-left"><span class="keyboard-hint"><kbd>DRAG</kbd> TO LOOK AROUND</span><span class="bottom-dot"></span><span class="game-hint">WASD TO MOVE · C FOR CAR · E TO RIDE</span></div>
+    <div class="bottom-right"><button id="car-toggle" class="world-action" type="button" title="Spawn or enter your personal car (C)" aria-pressed="false">🚗 <span>Spawn car · C</span></button><button id="flashlight-toggle" class="world-action" type="button" title="Toggle flashlight (F)" aria-pressed="true">🔦 <span>Flashlight on · F</span></button><button id="reset-view" class="world-action" title="Reset camera view">◎ <span>Reset view</span></button><span class="build-label">HANGOUT / NIGHT</span></div>
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <div id="connection" class="connection"><span class="dot"></span><span>Connecting to the world…</span></div>
   </div>
@@ -96,8 +96,10 @@
     const messages = $('messages'), chatPanel = $('chat-panel'), chatInput = $('chat-input'), online = $('online'), connection = $('connection');
     const colors = ['#9fe8cb','#c5b4ff','#ffbd9c','#a9cbff','#f6d989','#f5aeca','#a7e3ea'];
     let mode = 'signin', recovering = false, user = null, profile = null, channel = null, connected = false, setup = false, clientId = crypto.randomUUID();
-    let chatRows = [], toastTimer = null, networkTimer = null, lastSent = 0, lastPosition = new THREE.Vector3(9999,9999,9999), lastYaw = 9999, lastPitch = 9999, lastGait = -1, lastRunning = null, lastFlashlight = null, lastMessage = 0, flashlightOn = true;
-    const remotes = new Map(), keys = new Set();
+    let chatRows = [], toastTimer = null, networkTimer = null, lastSent = 0, lastPosition = new THREE.Vector3(9999,9999,9999), lastYaw = 9999, lastPitch = 9999, lastGait = -1, lastRunning = null, lastFlashlight = null, lastVehicleSignature = '', lastRideSignature = '', lastMessage = 0, flashlightOn = true;
+    const remotes = new Map(), remoteCars = new Map(), keys = new Set();
+    let personalCar = null, drivingCar = false, localRide = null, vehicleYaw = 0;
+    const carButton = $('car-toggle');
 
     function note(text, success) { messageBox.textContent = text || ''; messageBox.classList.toggle('success',Boolean(success)); }
     function toast(text) { $('toast').textContent = text; $('toast').classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => $('toast').classList.remove('show'),2600); }
@@ -164,6 +166,114 @@
     const moonLight = new THREE.DirectionalLight('#a4c3ff',0.78); moonLight.position.set(-65,92,-42); moonLight.castShadow = true; moonLight.shadow.mapSize.set(1024,1024); moonLight.shadow.camera.left=-88; moonLight.shadow.camera.right=88; moonLight.shadow.camera.top=88; moonLight.shadow.camera.bottom=-88; scene.add(moonLight);
     const fill = new THREE.DirectionalLight('#7898d9',0.18); fill.position.set(40,20,-40); scene.add(fill);
     const mat = (color,roughness,extra) => new THREE.MeshStandardMaterial({color:color,roughness:roughness === undefined ? .82 : roughness,...(extra || {})});
+    function buildCar(color='#9fe8cb'){
+      const group=new THREE.Group();
+      const paint=mat(color,.36,{metalness:.16});
+      const darkPaint=mat('#18283b',.5,{metalness:.24});
+      const glass=mat('#87b8d4',.2,{metalness:.2,transparent:true,opacity:.76});
+      const rubber=mat('#111824',.86);
+      const rim=mat('#a9bbca',.28,{metalness:.72});
+      const chassis=new THREE.Mesh(new THREE.BoxGeometry(2.02,.4,3.55),darkPaint);chassis.position.y=.56;chassis.castShadow=true;chassis.receiveShadow=true;group.add(chassis);
+      const body=new THREE.Mesh(new THREE.BoxGeometry(2.06,.58,3.62),paint);body.position.y=.83;body.castShadow=true;body.receiveShadow=true;group.add(body);
+      const hood=new THREE.Mesh(new THREE.BoxGeometry(1.82,.24,1.08),paint);hood.position.set(0,1.13,-1.13);hood.castShadow=true;group.add(hood);
+      const trunk=new THREE.Mesh(new THREE.BoxGeometry(1.82,.22,.63),paint);trunk.position.set(0,1.08,1.36);trunk.castShadow=true;group.add(trunk);
+      const cabin=new THREE.Mesh(new THREE.BoxGeometry(1.48,.68,1.62),glass);cabin.position.set(0,1.38,.05);cabin.castShadow=true;group.add(cabin);
+      const roof=new THREE.Mesh(new THREE.BoxGeometry(1.39,.1,1.24),paint);roof.position.set(0,1.76,.06);roof.castShadow=true;group.add(roof);
+      const windshield=new THREE.Mesh(new THREE.BoxGeometry(1.36,.48,.045),glass);windshield.position.set(0,1.39,-.78);windshield.rotation.x=-.12;group.add(windshield);
+      const rearGlass=new THREE.Mesh(new THREE.BoxGeometry(1.32,.42,.04),glass);rearGlass.position.set(0,1.39,.88);rearGlass.rotation.x=.12;group.add(rearGlass);
+      const wheels=[];
+      for(const x of [-1.01,1.01])for(const z of [-1.16,1.16]){
+        const tire=new THREE.Mesh(new THREE.CylinderGeometry(.365,.365,.22,18),rubber);tire.rotation.z=Math.PI/2;tire.position.set(x,.39,z);tire.castShadow=true;group.add(tire);wheels.push(tire);
+        const hub=new THREE.Mesh(new THREE.CylinderGeometry(.205,.205,.235,12),rim);hub.rotation.z=Math.PI/2;hub.position.copy(tire.position);group.add(hub);
+      }
+      for(const x of [-.68,.68]){
+        const headlamp=new THREE.Mesh(new THREE.BoxGeometry(.34,.16,.045),new THREE.MeshBasicMaterial({color:'#e5f1ff'}));headlamp.position.set(x,.94,-1.84);group.add(headlamp);
+        const tailLamp=new THREE.Mesh(new THREE.BoxGeometry(.3,.14,.045),new THREE.MeshBasicMaterial({color:'#ff4d57'}));tailLamp.position.set(x,.91,1.84);group.add(tailLamp);
+      }
+      const headlights=[];
+      for(const x of [-.66,.66]){
+        const light=new THREE.SpotLight('#d8e9ff',18,34,Math.PI/7,.48,1.45);light.position.set(x,.95,-1.78);light.target.position.set(x,.6,-15);group.add(light);group.add(light.target);headlights.push(light);
+      }
+      const dashboard=new THREE.Mesh(new THREE.BoxGeometry(1.45,.12,.28),darkPaint);dashboard.position.set(0,1.06,-.57);group.add(dashboard);
+      group.userData={wheels,headlights,color};
+      return group;
+    }
+    function seatWorldPosition(carPosition,carYaw,seatIndex){
+      const offset=seatIndex===1?[.46,-.60,-.25]:seatIndex===2?[-.46,-.60,.72]:[.46,-.60,.72];
+      const rotated=new THREE.Vector3(offset[0],0,offset[2]).applyAxisAngle(new THREE.Vector3(0,1,0),-carYaw);
+      return new THREE.Vector3(carPosition.x+rotated.x,carPosition.y+offset[1],carPosition.z+rotated.z);
+    }
+    function poseSeated(actor,carRecord,seatIndex,dt,time){
+      const seat=seatWorldPosition(carRecord.group.position,carRecord.yaw,seatIndex);
+      actor.position.copy(seat);actor.rotation.y=carRecord.group.rotation.y;
+      const d=actor.userData;
+      if(!d?.anim)return;
+      d.anim.gait+=(0-d.anim.gait)*(1-Math.exp(-dt*12));
+      d.legs?.forEach((leg,i)=>{leg.rotation.x=-1.02;leg.rotation.z=(i===0?-.04:.04);});
+      d.shins?.forEach(shin=>{shin.rotation.x=.86;});
+      d.arms?.forEach((arm,i)=>{arm.rotation.x=-.28;arm.rotation.z=i===0?-.12:.12;});
+      d.forearms?.forEach(arm=>{arm.rotation.x=-.24;});
+      if(d.torso?.rotation){d.torso.rotation.x=.015;d.torso.rotation.z=0;}
+      if(d.head?.rotation){d.head.rotation.x=0;d.head.rotation.y=Math.sin(time*.55)*.018;d.head.rotation.z=Math.sin(time*.7)*.012;}
+    }
+    function syncRemoteCar(ownerClientId,data){
+      if(!data?.active){
+        const old=remoteCars.get(ownerClientId);if(old){scene.remove(old.group);remoteCars.delete(ownerClientId);}return;
+      }
+      let car=remoteCars.get(ownerClientId);
+      if(!car){
+        const group=buildCar(data.color||'#9fe8cb');scene.add(group);
+        car={group,target:new THREE.Vector3(Number(data.x)||0,0,Number(data.z)||0),yaw:Number(data.yaw)||0,targetYaw:Number(data.yaw)||0,speed:0,targetSpeed:Number(data.speed)||0,driving:Boolean(data.driving)};
+        remoteCars.set(ownerClientId,car);
+      }
+      car.target.set(Number(data.x)||0,0,Number(data.z)||0);
+      car.targetYaw=Number(data.yaw)||0;car.targetSpeed=Number(data.speed)||0;car.driving=Boolean(data.driving);
+    }
+    function updateCarButton(){
+      carButton.setAttribute('aria-pressed',String(drivingCar));
+      carButton.querySelector('span').textContent=!personalCar?'Spawn car · C':drivingCar?'Exit car · C':'Drive car · C';
+      carButton.title=!personalCar?'Spawn your personal car (C)':drivingCar?'Leave your parked car (C)':'Get back into your personal car (C)';
+    }
+    function togglePersonalCar(){
+      if(localRide){toast('Press E to leave the passenger seat first.');return;}
+      if(!personalCar){
+        vehicleYaw=yaw;
+        const spawnX=position.x+Math.sin(vehicleYaw)*3.8,spawnZ=position.z-Math.cos(vehicleYaw)*3.8;
+        const group=buildCar(profile?.avatar_color||'#9fe8cb');group.position.set(spawnX,0,spawnZ);group.rotation.y=-vehicleYaw;scene.add(group);
+        personalCar={group,yaw:vehicleYaw,speed:0,color:profile?.avatar_color||'#9fe8cb'};
+        drivingCar=true;position.set(spawnX,0,spawnZ);camera.position.set(spawnX-Math.sin(yaw)*6,3.8,spawnZ+Math.cos(yaw)*6);
+        updateCarButton();toast('Your personal car is ready. WASD to drive, E to pick up a friend.');return;
+      }
+      if(drivingCar){
+        drivingCar=false;vehicleYaw=personalCar.yaw;yaw=vehicleYaw;
+        position.set(personalCar.group.position.x+Math.cos(vehicleYaw)*1.8,0,personalCar.group.position.z+Math.sin(vehicleYaw)*1.8);
+        updateCarButton();toast('Car parked. Press C to drive again.');return;
+      }
+      drivingCar=true;vehicleYaw=personalCar.yaw;yaw=vehicleYaw;position.copy(personalCar.group.position);
+      updateCarButton();toast('You’re driving! WASD to drive, E to pick up a friend.');
+    }
+    function togglePassenger(){
+      if(localRide){
+        const car=remoteCars.get(localRide.driverClientId);
+        if(car){position.set(car.group.position.x+Math.cos(car.yaw)*2,0,car.group.position.z+Math.sin(car.yaw)*2);yaw=car.yaw;}
+        localRide=null;toast('You left the passenger seat.');return;
+      }
+      if(drivingCar){toast('Your seat is the driver seat. Press C to park and exit.');return;}
+      let nearest=null,nearestDistance=5.8*5.8;
+      remoteCars.forEach((car,id)=>{
+        if(!car.driving)return;
+        const distance=position.distanceToSquared(car.group.position);
+        if(distance<nearestDistance){nearest={id,car};nearestDistance=distance;}
+      });
+      if(!nearest){toast('Get close to a friend’s car while they’re driving to ride along.');return;}
+      const used=new Set();
+      remotes.forEach(remote=>{if(remote.ride?.driverClientId===nearest.id)used.add(Number(remote.ride.seatIndex));});
+      const seatIndex=[1,2,3].find(index=>!used.has(index));
+      if(!seatIndex){toast('This car’s passenger seats are full.');return;}
+      localRide={driverClientId:nearest.id,seatIndex};
+      toast('Passenger seat claimed. Press E again to hop out.');
+    }
+    carButton.addEventListener('click',togglePersonalCar);
     // A moonlit sky and sparse stars create the nighttime atmosphere.
     const starPositions=[];
     for(let i=0;i<820;i++){const azimuth=Math.random()*Math.PI*2,elevation=.08+Math.random()*1.48,radius=320;starPositions.push(Math.cos(elevation)*Math.cos(azimuth)*radius,Math.sin(elevation)*radius+5,Math.cos(elevation)*Math.sin(azimuth)*radius);}
@@ -367,37 +477,26 @@
     function rebuildAvatar(){scene.remove(local);local=avatar(profile.display_name,profile.avatar_color);local.position.copy(position);local.visible=false;scene.add(local);}
     function spawnRemote(payload){
       const actor=avatar(cleanName(payload.display_name||'Wanderer'),payload.avatar_color||'#c5b4ff');
-      const remoteYaw=-(Number(payload.yaw)||0);
-      const remotePitch=THREE.MathUtils.clamp(Number(payload.pitch)||0,-.78,.9);
-      const remoteGait=THREE.MathUtils.clamp(Number(payload.gait)||0,0,1);
-      const remoteFlashlight=payload.flashlightOn!==false;
-      actor.position.set(Number(payload.x)||0,Number(payload.y)||0,Number(payload.z)||0);
-      actor.rotation.y=remoteYaw;
+      const remoteYaw=-(Number(payload.yaw)||0),remotePitch=THREE.MathUtils.clamp(Number(payload.pitch)||0,-.78,.9);
+      const remoteGait=THREE.MathUtils.clamp(Number(payload.gait)||0,0,1),remoteFlashlight=payload.flashlightOn!==false;
+      actor.position.set(Number(payload.x)||0,Number(payload.y)||0,Number(payload.z)||0);actor.rotation.y=remoteYaw;
       if(actor.userData.flashlightLight)actor.userData.flashlightLight.visible=remoteFlashlight;
       if(actor.userData.heldFlashlight)actor.userData.heldFlashlight.visible=remoteFlashlight;
       scene.add(actor);
-      remotes.set(payload.client_id,{
-        group:actor,target:actor.position.clone(),targetYaw:remoteYaw,
-        targetPitch:remotePitch,pitch:remotePitch,targetGait:remoteGait,
-        targetRunning:Boolean(payload.running),flashlightOn:remoteFlashlight,userId:payload.user_id,
-        animPosition:actor.position.clone()
-      });
+      remotes.set(payload.client_id,{group:actor,target:actor.position.clone(),targetYaw:remoteYaw,targetPitch:remotePitch,pitch:remotePitch,targetGait:remoteGait,targetRunning:Boolean(payload.running),flashlightOn:remoteFlashlight,userId:payload.user_id,animPosition:actor.position.clone(),ride:payload.ride||null});
+      syncRemoteCar(payload.client_id,payload.car);
     }
     function moveRemote(payload){
       if(!payload||!payload.client_id||payload.client_id===clientId)return;
-      let r=remotes.get(payload.client_id);
-      if(!r){spawnRemote(payload);r=remotes.get(payload.client_id);}
-      r.target.set(Number(payload.x)||0,Number(payload.y)||0,Number(payload.z)||0);
-      r.targetYaw=-(Number(payload.yaw)||0);
-      r.targetPitch=THREE.MathUtils.clamp(Number(payload.pitch)||0,-.78,.9);
-      r.targetGait=THREE.MathUtils.clamp(Number(payload.gait)||0,0,1);
-      r.targetRunning=Boolean(payload.running);
-      r.flashlightOn=payload.flashlightOn!==false;
+      let r=remotes.get(payload.client_id);if(!r){spawnRemote(payload);r=remotes.get(payload.client_id);}
+      r.target.set(Number(payload.x)||0,Number(payload.y)||0,Number(payload.z)||0);r.targetYaw=-(Number(payload.yaw)||0);
+      r.targetPitch=THREE.MathUtils.clamp(Number(payload.pitch)||0,-.78,.9);r.targetGait=THREE.MathUtils.clamp(Number(payload.gait)||0,0,1);
+      r.targetRunning=Boolean(payload.running);r.flashlightOn=payload.flashlightOn!==false;r.ride=payload.ride||null;
       if(r.group.userData.flashlightLight)r.group.userData.flashlightLight.visible=r.flashlightOn;
       if(r.group.userData.heldFlashlight)r.group.userData.heldFlashlight.visible=r.flashlightOn;
+      syncRemoteCar(payload.client_id,payload.car);
     }
-    
-    function syncPresence(){if(!channel)return;const state=channel.presenceState(),seen=[],ids=new Set([user && user.id]);Object.values(state).forEach(arr=>(arr||[]).forEach(item=>{if(item.client_id===clientId)return;seen.push(item);if(item.user_id)ids.add(item.user_id);}));online.textContent=ids.size+' HERE';const keysNow=new Set(seen.map(item=>item.client_id));remotes.forEach((r,id)=>{if(!keysNow.has(id)){scene.remove(r.group);remotes.delete(id);}});}
+    function syncPresence(){if(!channel)return;const state=channel.presenceState(),seen=[],ids=new Set([user && user.id]);Object.values(state).forEach(arr=>(arr||[]).forEach(item=>{if(item.client_id===clientId)return;seen.push(item);if(item.user_id)ids.add(item.user_id);}));online.textContent=ids.size+' HERE';const keysNow=new Set(seen.map(item=>item.client_id));remotes.forEach((r,id)=>{if(!keysNow.has(id)){scene.remove(r.group);remotes.delete(id);}});remoteCars.forEach((car,id)=>{if(!keysNow.has(id)){scene.remove(car.group);remoteCars.delete(id);}});}
     async function loadProfile(who){const result=await supabase.from('profiles').select('id,display_name,avatar_color').eq('id',who.id).maybeSingle();if(result.error)throw result.error;if(result.data){profile=result.data;if(profile.avatar_color==='#8b5cf6'){const color=colors[Math.floor(Math.random()*colors.length)];const change=await supabase.from('profiles').update({avatar_color:color}).eq('id',who.id).select('id,display_name,avatar_color').single();if(!change.error)profile=change.data;}return;}const created=await supabase.from('profiles').insert({id:who.id,display_name:cleanName(who.user_metadata && who.user_metadata.display_name || who.email.split('@')[0]),avatar_color:colors[Math.floor(Math.random()*colors.length)]}).select('id,display_name,avatar_color').single();if(created.error)throw created.error;profile=created.data;}
     async function loadChat(){const result=await supabase.from('chat_messages').select('id,user_id,display_name,content,created_at').order('created_at',{ascending:false}).limit(60);if(result.error){console.warn('Chat history did not load:',result.error.message);toast('Chat history could not load right now.');return;}chatRows=(result.data||[]).reverse();renderChat();}
     function colorFor(row){if(row.user_id===user?.id)return profile?.avatar_color || '#9fe8cb';let hash=0;const s=String(row.user_id||row.display_name||'');for(let i=0;i<s.length;i++)hash=((hash<<5)-hash+s.charCodeAt(i))|0;return colors[Math.abs(hash)%colors.length];}
@@ -405,34 +504,32 @@
     function renderChat(scroll){messages.replaceChildren();if(!chatRows.length){const e=document.createElement('div');e.className='empty';const icon=document.createElement('span');icon.textContent='✳';const title=document.createElement('strong');title.textContent='The plaza is yours.';const para=document.createElement('p');para.textContent='Drop a hello to get things started.';e.append(icon,title,para);messages.append(e);return;}chatRows.slice(-80).forEach(row=>{const article=document.createElement('article');article.className='message';const av=document.createElement('div');av.className='message-avatar';av.textContent=cleanName(row.display_name||'Player').slice(0,1).toUpperCase();av.style.setProperty('--avatar',colorFor(row));const main=document.createElement('div');main.className='message-main';const meta=document.createElement('div');meta.className='message-meta';const name=document.createElement('strong');name.textContent=cleanName(row.display_name||'Player');const time=document.createElement('time');const date=new Date(row.created_at||Date.now());time.dateTime=date.toISOString();time.textContent=date.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});const content=document.createElement('p');content.textContent=row.content;meta.append(name,time);main.append(meta,content);article.append(av,main);messages.append(article);});if(scroll)messages.scrollTop=messages.scrollHeight;}
     async function joinWorld(){if(!user)return;if(channel)await supabase.removeChannel(channel);connected=false;clientId=user.id.slice(0,8)+'-'+crypto.randomUUID().slice(0,8);status('Connecting to the global plaza…',false);channel=supabase.channel('global-lobby',{config:{private:true,broadcast:{self:false,ack:false},presence:{key:clientId}}});channel.on('presence',{event:'sync'},syncPresence).on('presence',{event:'join'},syncPresence).on('presence',{event:'leave'},syncPresence).on('broadcast',{event:'player-state'},({payload})=>moveRemote(payload)).on('broadcast',{event:'chat-message'},({payload})=>addMessage(payload)).subscribe(async state=>{if(state==='SUBSCRIBED'){connected=true;await channel.track({client_id:clientId,user_id:user.id,display_name:profile.display_name,avatar_color:profile.avatar_color,online_at:new Date().toISOString()});syncPresence();status('You’re in the global plaza.',true);startNetwork();}else if(['CHANNEL_ERROR','TIMED_OUT','CLOSED'].includes(state)){connected=false;status('Reconnecting to the global plaza…',false);}});}
     function startNetwork(){
-      clearInterval(networkTimer);lastSent=0;lastPosition.set(9999,9999,9999);
-      lastYaw=9999;lastPitch=9999;lastGait=-1;lastRunning=null;lastFlashlight=null;
+      clearInterval(networkTimer);lastSent=0;lastPosition.set(9999,9999,9999);lastYaw=9999;lastPitch=9999;lastGait=-1;lastRunning=null;lastFlashlight=null;lastVehicleSignature='';lastRideSignature='';
       networkTimer=setInterval(()=>{
         if(!connected||!channel||!user)return;
         const now=performance.now();
         const hasMovementInput=['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright'].some(key=>keys.has(key));
-        const running=hasMovementInput&&keys.has('shift');
-        const gait=hasMovementInput?(running?1:.72):0;
-        const changed=position.distanceToSquared(lastPosition)>.0015||
-          Math.abs(yaw-lastYaw)>.025||Math.abs(pitch-lastPitch)>.025||
-          Math.abs(gait-lastGait)>.05||running!==lastRunning||flashlightOn!==lastFlashlight;
+        const running=hasMovementInput&&keys.has('shift'),gait=hasMovementInput?(running?1:.72):0;
+        const carState=personalCar?{active:true,x:+personalCar.group.position.x.toFixed(2),z:+personalCar.group.position.z.toFixed(2),yaw:+personalCar.yaw.toFixed(3),speed:+personalCar.speed.toFixed(2),color:personalCar.color,driving:drivingCar}:null;
+        const rideState=localRide?{driverClientId:localRide.driverClientId,seatIndex:localRide.seatIndex}:null;
+        const carSignature=carState?JSON.stringify(carState):'none',rideSignature=rideState?JSON.stringify(rideState):'none';
+        const changed=position.distanceToSquared(lastPosition)>.0015||Math.abs(yaw-lastYaw)>.025||Math.abs(pitch-lastPitch)>.025||Math.abs(gait-lastGait)>.05||running!==lastRunning||flashlightOn!==lastFlashlight||carSignature!==lastVehicleSignature||rideSignature!==lastRideSignature;
         if(!changed&&now-lastSent<700)return;
-        lastSent=now;lastPosition.copy(position);lastYaw=yaw;lastPitch=pitch;
-        lastGait=gait;lastRunning=running;lastFlashlight=flashlightOn;
+        lastSent=now;lastPosition.copy(position);lastYaw=yaw;lastPitch=pitch;lastGait=gait;lastRunning=running;lastFlashlight=flashlightOn;lastVehicleSignature=carSignature;lastRideSignature=rideSignature;
+        const displayPosition=drivingCar&&personalCar?personalCar.group.position:position;
         channel.send({type:'broadcast',event:'player-state',payload:{
-          client_id:clientId,user_id:user.id,display_name:profile.display_name,
-          avatar_color:profile.avatar_color,x:+position.x.toFixed(3),
-          y:+position.y.toFixed(3),z:+position.z.toFixed(3),
-          yaw:+yaw.toFixed(3),pitch:+pitch.toFixed(3),gait:+gait.toFixed(2),running,flashlightOn
+          client_id:clientId,user_id:user.id,display_name:profile.display_name,avatar_color:profile.avatar_color,
+          x:+displayPosition.x.toFixed(3),y:+displayPosition.y.toFixed(3),z:+displayPosition.z.toFixed(3),
+          yaw:+yaw.toFixed(3),pitch:+pitch.toFixed(3),gait:+gait.toFixed(2),running,flashlightOn,car:carState,ride:rideState
         }}).catch(err=>console.debug('Position message skipped',err));
       },120);
     }
     
-    async function leaveWorld(){setup=false;connected=false;clearInterval(networkTimer);networkTimer=null;if(channel){await supabase.removeChannel(channel);channel=null;}remotes.forEach(r=>scene.remove(r.group));remotes.clear();chatRows=[];messages.replaceChildren();online.textContent='0 HERE';}
-    async function applySession(session){if(recovering)return;if(!session?.user){if(user)await leaveWorld();user=null;profile=null;setup=false;auth.hidden=false;game.hidden=true;local.visible=false;return;}if(user?.id===session.user.id&&setup)return;if(setup)await leaveWorld();user=session.user;setup=true;auth.hidden=true;game.hidden=false;status('Finding your place in the world…',false);try{await loadProfile(user);$('user-name').textContent=profile.display_name;$('user-avatar').textContent=profile.display_name.slice(0,1).toUpperCase();$('user-avatar').style.background=profile.avatar_color;const angle=Math.random()*Math.PI*2,r=6.5+Math.random()*3.5;position.set(Math.cos(angle)*r,0,Math.sin(angle)*r);vertical=0;rebuildAvatar();await loadChat();await joinWorld();toast('Welcome to the plaza, '+profile.display_name+'.');}catch(error){console.error('Could not join world:',error);toast('Signed in, but something went wrong loading the plaza. Refresh to retry.');}}
+    async function leaveWorld(){setup=false;connected=false;clearInterval(networkTimer);networkTimer=null;if(channel){await supabase.removeChannel(channel);channel=null;}remotes.forEach(r=>scene.remove(r.group));remotes.clear();remoteCars.forEach(car=>scene.remove(car.group));remoteCars.clear();if(personalCar)scene.remove(personalCar.group);personalCar=null;drivingCar=false;localRide=null;updateCarButton();chatRows=[];messages.replaceChildren();online.textContent='0 HERE';}
+    async function applySession(session){if(recovering)return;if(!session?.user){if(user)await leaveWorld();user=null;profile=null;setup=false;auth.hidden=false;game.hidden=true;local.visible=false;updateCarButton();return;}if(user?.id===session.user.id&&setup)return;if(setup)await leaveWorld();user=session.user;setup=true;auth.hidden=true;game.hidden=false;updateCarButton();status('Finding your place in the world…',false);try{await loadProfile(user);$('user-name').textContent=profile.display_name;$('user-avatar').textContent=profile.display_name.slice(0,1).toUpperCase();$('user-avatar').style.background=profile.avatar_color;const angle=Math.random()*Math.PI*2,r=6.5+Math.random()*3.5;position.set(Math.cos(angle)*r,0,Math.sin(angle)*r);vertical=0;rebuildAvatar();await loadChat();await joinWorld();toast('Welcome to the plaza, '+profile.display_name+'.');}catch(error){console.error('Could not join world:',error);toast('Signed in, but something went wrong loading the plaza. Refresh to retry.');}}
     $('chat-form').addEventListener('submit',async(event)=>{event.preventDefault();if(!user||!connected){toast('You’re reconnecting. Try again in a moment.');return;}const content=chatInput.value.trim();if(!content)return;const now=Date.now();if(now-lastMessage<450)return;lastMessage=now;chatInput.value='';const button=$('chat-form').querySelector('button');button.disabled=true;try{const result=await supabase.from('chat_messages').insert({user_id:user.id,content}).select('id,user_id,display_name,content,created_at').single();if(result.error)throw result.error;addMessage(result.data);const sent=await channel.send({type:'broadcast',event:'chat-message',payload:result.data});if(sent==='error')console.warn('Message persisted but broadcast failed.');}catch(error){console.error('Chat send failed:',error);toast('Message not sent. Check your connection and try again.');chatInput.value=content;}finally{button.disabled=false;chatInput.focus();}});
     $('chat-toggle').addEventListener('click',()=>{const minimized=chatPanel.classList.toggle('minimized');if(!minimized&&innerWidth<=760)chatInput.focus();});$('chat-minimize').addEventListener('click',()=>chatPanel.classList.toggle('minimized'));$('reset-view').addEventListener('click',()=>{yaw=0;pitch=0;toast('View reset. The world is right where you left it.');});
-    document.addEventListener('keydown',event=>{const target=event.target;if(target instanceof HTMLInputElement||target instanceof HTMLTextAreaElement||target?.isContentEditable)return;const key=event.key.toLowerCase();if(key==='f'&&user&&!event.repeat){event.preventDefault();setFlashlight(!flashlightOn,true);return;}if(key==='t'&&user){event.preventDefault();const minimized=chatPanel.classList.toggle('minimized');if(!minimized)chatInput.focus();return;}if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' ','shift'].includes(key)){keys.add(key);if(key===' ')event.preventDefault();}});document.addEventListener('keyup',event=>keys.delete(event.key.toLowerCase()));addEventListener('blur',()=>keys.clear());
+    document.addEventListener('keydown',event=>{const target=event.target;if(target instanceof HTMLInputElement||target instanceof HTMLTextAreaElement||target?.isContentEditable)return;const key=event.key.toLowerCase();if(key==='f'&&user&&!event.repeat){event.preventDefault();setFlashlight(!flashlightOn,true);return;}if(key==='t'&&user){event.preventDefault();const minimized=chatPanel.classList.toggle('minimized');if(!minimized)chatInput.focus();return;}if(key==='c'&&user&&!event.repeat){event.preventDefault();togglePersonalCar();return;}if(key==='e'&&user&&!event.repeat){event.preventDefault();togglePassenger();return;}if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' ','shift'].includes(key)){keys.add(key);if(key===' ')event.preventDefault();}});document.addEventListener('keyup',event=>keys.delete(event.key.toLowerCase()));addEventListener('blur',()=>keys.clear());
     renderer.domElement.addEventListener('click',()=>{if(user&&!document.pointerLockElement&&innerWidth>760)renderer.domElement.requestPointerLock?.();});document.addEventListener('pointerlockchange',()=>{const locked=document.pointerLockElement===renderer.domElement;const hint=document.querySelector('.keyboard-hint');if(hint)hint.innerHTML=locked?'<kbd>ESC</kbd> TO RELEASE LOOK':'<kbd>CLICK</kbd> TO LOOK AROUND';});
     document.addEventListener('mousemove',event=>{if(document.pointerLockElement!==renderer.domElement||!user)return;yaw+=event.movementX*.0022;pitch=THREE.MathUtils.clamp(pitch+event.movementY*.0015,-.78,.9);});
     let touchLookId=null,lastTouchX=0,lastTouchY=0,mouseDrag=false,lastMouseX=0,lastMouseY=0;

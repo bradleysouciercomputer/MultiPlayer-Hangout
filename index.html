@@ -561,40 +561,81 @@
         lanterns.forEach(l=>{l.light.intensity=4.8+Math.sin(time*1.8+l.phase)*.28;l.shade.material.emissiveIntensity=2.05+Math.sin(time*1.8+l.phase)*.15;});
         flashlightSpot.visible=flashlightOn&&Boolean(user&&setup);flashlightBeam.visible=flashlightOn&&Boolean(user&&setup);flashlightModel.visible=flashlightOn&&Boolean(user&&setup);
         if(user&&setup&&local?.position){
-          const forward=(keys.has('w')||keys.has('arrowup')?1:0)-(keys.has('s')||keys.has('arrowdown')?1:0);
-          const strafe=(keys.has('d')||keys.has('arrowright')?1:0)-(keys.has('a')||keys.has('arrowleft')?1:0);
-          motion.set(Math.sin(yaw)*forward+Math.cos(yaw)*strafe,0,-Math.cos(yaw)*forward+Math.sin(yaw)*strafe);
-          if(motion.lengthSq()>1)motion.normalize();
-          const running=keys.has('shift'),moving=motion.lengthSq()>.001;
-          oldPosition.copy(position);position.addScaledVector(motion,(running?12.8:7.8)*dt);
-          if(obstacles.some(o=>Math.hypot(position.x-o.x,position.z-o.z)<o.r)){position.x=oldPosition.x;position.z=oldPosition.z;}
-          const radius=Math.hypot(position.x,position.z);if(radius>66){position.x*=66/radius;position.z*=66/radius;}
-          if(keys.has(' ')&&grounded){vertical=7.6;grounded=false;}
-          vertical-=19*dt;position.y+=vertical*dt;if(position.y<=0){position.y=0;vertical=0;grounded=true;}
-          const gaitTarget=moving?(running?1:.72):0;
-          blend+=(gaitTarget-blend)*(1-Math.exp(-dt*9));
-          local.position.copy(position);local.rotation.y=-yaw;
-          animateAvatar(local,dt,time,gaitTarget,running,strafe,pitch);
-          const stepRate=running?17:11;
-          const cameraBob=Math.sin(time*stepRate)*.035*blend;
-          const cameraSway=Math.cos(time*stepRate*.5)*.012*blend;
-          const eyeHeight=1.62+cameraBob;
-          cameraWant.set(position.x+Math.cos(yaw)*cameraSway,position.y+eyeHeight,position.z+Math.sin(yaw)*cameraSway);
-          camera.position.lerp(cameraWant,1-Math.exp(-dt*18));
-          lookAt.set(position.x+Math.sin(yaw)*Math.cos(pitch),position.y+eyeHeight-Math.sin(pitch),position.z-Math.cos(yaw)*Math.cos(pitch));
-          camera.lookAt(lookAt);
+          // Smooth remote cars first so passengers stay seated relative to their car.
+          remoteCars.forEach(car=>{
+            if(!car?.group?.position||!car.target)return;
+            car.group.position.lerp(car.target,1-Math.exp(-dt*12));
+            let turn=car.targetYaw-car.yaw;turn=Math.atan2(Math.sin(turn),Math.cos(turn));car.yaw+=turn*(1-Math.exp(-dt*10));
+            car.group.rotation.y=-car.yaw;car.speed+=(car.targetSpeed-car.speed)*(1-Math.exp(-dt*7));
+            car.group.userData.wheels?.forEach(wheel=>{wheel.rotation.x+=car.speed*dt*1.8;});
+          });
+          if(drivingCar&&personalCar){
+            const accel=(keys.has('w')||keys.has('arrowup')?1:0)-(keys.has('s')||keys.has('arrowdown')?1:0);
+            const steer=(keys.has('d')||keys.has('arrowright')?1:0)-(keys.has('a')||keys.has('arrowleft')?1:0);
+            if(accel>0)personalCar.speed=Math.min(18,personalCar.speed+11*dt);
+            else if(accel<0)personalCar.speed=Math.max(-7,personalCar.speed-13*dt);
+            else personalCar.speed*=Math.exp(-1.05*dt);
+            if(Math.abs(personalCar.speed)<.035)personalCar.speed=0;
+            if(Math.abs(personalCar.speed)>.2)vehicleYaw+=steer*dt*(.5+Math.abs(personalCar.speed)*.04)*(personalCar.speed<0?-1:1);
+            personalCar.yaw=vehicleYaw;
+            const carPos=personalCar.group.position,oldX=carPos.x,oldZ=carPos.z;
+            carPos.x+=Math.sin(vehicleYaw)*personalCar.speed*dt;
+            carPos.z-=Math.cos(vehicleYaw)*personalCar.speed*dt;
+            if(obstacles.some(o=>Math.hypot(carPos.x-o.x,carPos.z-o.z)<o.r+1.3)){carPos.x=oldX;carPos.z=oldZ;personalCar.speed=0;}
+            const radius=Math.hypot(carPos.x,carPos.z);if(radius>66){carPos.x*=66/radius;carPos.z*=66/radius;personalCar.speed=0;}
+            personalCar.group.rotation.y=-vehicleYaw;
+            personalCar.group.userData.wheels?.forEach(wheel=>{wheel.rotation.x+=personalCar.speed*dt*1.8;});
+            position.copy(carPos);
+            if(steer!==0)yaw=vehicleYaw;
+            local.visible=false;
+            cameraWant.set(carPos.x-Math.sin(yaw)*7,carPos.y+3.65,carPos.z+Math.cos(yaw)*7);
+            camera.position.lerp(cameraWant,1-Math.exp(-dt*5.5));
+            lookAt.set(carPos.x,carPos.y+1.05,carPos.z);camera.lookAt(lookAt);
+          }else if(localRide){
+            const car=remoteCars.get(localRide.driverClientId);
+            if(car){
+              position.copy(seatWorldPosition(car.group.position,car.yaw,localRide.seatIndex));local.visible=false;
+              cameraWant.set(car.group.position.x-Math.sin(yaw)*6.7,car.group.position.y+3.25,car.group.position.z+Math.cos(yaw)*6.7);
+              camera.position.lerp(cameraWant,1-Math.exp(-dt*5.5));
+              lookAt.set(car.group.position.x,car.group.position.y+1,car.group.position.z);camera.lookAt(lookAt);
+            }else{
+              localRide=null;toast('Your ride has left the plaza.');local.visible=false;
+            }
+          }else{
+            const forward=(keys.has('w')||keys.has('arrowup')?1:0)-(keys.has('s')||keys.has('arrowdown')?1:0);
+            const strafe=(keys.has('d')||keys.has('arrowright')?1:0)-(keys.has('a')||keys.has('arrowleft')?1:0);
+            motion.set(Math.sin(yaw)*forward+Math.cos(yaw)*strafe,0,-Math.cos(yaw)*forward+Math.sin(yaw)*strafe);
+            if(motion.lengthSq()>1)motion.normalize();
+            const running=keys.has('shift'),moving=motion.lengthSq()>.001;
+            oldPosition.copy(position);position.addScaledVector(motion,(running?12.8:7.8)*dt);
+            if(obstacles.some(o=>Math.hypot(position.x-o.x,position.z-o.z)<o.r)){position.x=oldPosition.x;position.z=oldPosition.z;}
+            const radius=Math.hypot(position.x,position.z);if(radius>66){position.x*=66/radius;position.z*=66/radius;}
+            if(keys.has(' ')&&grounded){vertical=7.6;grounded=false;}
+            vertical-=19*dt;position.y+=vertical*dt;if(position.y<=0){position.y=0;vertical=0;grounded=true;}
+            const gaitTarget=moving?(running?1:.72):0;
+            blend+=(gaitTarget-blend)*(1-Math.exp(-dt*9));
+            local.position.copy(position);local.rotation.y=-yaw;local.visible=false;
+            animateAvatar(local,dt,time,gaitTarget,running,strafe,pitch);
+            const stepRate=running?17:11,cameraBob=Math.sin(time*stepRate)*.035*blend,cameraSway=Math.cos(time*stepRate*.5)*.012*blend,eyeHeight=1.62+cameraBob;
+            cameraWant.set(position.x+Math.cos(yaw)*cameraSway,position.y+eyeHeight,position.z+Math.sin(yaw)*cameraSway);
+            camera.position.lerp(cameraWant,1-Math.exp(-dt*18));
+            lookAt.set(position.x+Math.sin(yaw)*Math.cos(pitch),position.y+eyeHeight-Math.sin(pitch),position.z-Math.cos(yaw)*Math.cos(pitch));camera.lookAt(lookAt);
+          }
+          remotes.forEach((r,id)=>{
+            if(!r?.group?.position||!r.target||!r.animPosition){remotes.delete(id);return;}
+            const rideCar=r.ride?(r.ride.driverClientId===clientId&&personalCar?{group:personalCar.group,yaw:personalCar.yaw}:remoteCars.get(r.ride.driverClientId)):null;
+            if(rideCar&&r.ride?.seatIndex){
+              poseSeated(r.group,rideCar,Number(r.ride.seatIndex),dt,time);
+            }else{
+              r.group.position.lerp(r.target,1-Math.exp(-dt*8.5));
+              let d=r.targetYaw-r.group.rotation.y;d=Math.atan2(Math.sin(d),Math.cos(d));r.group.rotation.y+=d*(1-Math.exp(-dt*12));
+              r.pitch+=(r.targetPitch-r.pitch)*(1-Math.exp(-dt*11));animateAvatar(r.group,dt,time,r.targetGait,r.targetRunning,0,r.pitch);
+            }
+          });
         }else{
           const a=time*.035;cameraWant.set(Math.sin(a)*90,42,Math.cos(a)*90);
           camera.position.lerp(cameraWant,1-Math.exp(-dt*2.1));camera.lookAt(0,0,0);
         }
-        remotes.forEach((r,id)=>{
-          if(!r?.group?.position||!r.target||!r.animPosition){remotes.delete(id);return;}
-          r.group.position.lerp(r.target,1-Math.exp(-dt*8.5));
-          let d=r.targetYaw-r.group.rotation.y;d=Math.atan2(Math.sin(d),Math.cos(d));
-          r.group.rotation.y+=d*(1-Math.exp(-dt*12));
-          r.pitch+=(r.targetPitch-r.pitch)*(1-Math.exp(-dt*11));
-          animateAvatar(r.group,dt,time,r.targetGait,r.targetRunning,0,r.pitch);
-        });
       }catch(error){
         // Keep the world rendering if a player/animation object arrives malformed.
         if(!frameErrorReported){console.error('[Hangout] Recovered from a frame-update error:',error);frameErrorReported=true;}
